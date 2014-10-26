@@ -61,7 +61,7 @@ function gameDraw() {
 
 function snakeInitialize() {
    snake = [];
-   snakeLength = 5;
+   snakeLength = 4;
    snakeSize = 20;
    snakeDirection = "down";
    
@@ -76,7 +76,7 @@ function snakeInitialize() {
 
 function snakeDraw() {
     for(var index = 0; index < snake.length; index++) {
-        context.fillStyle = "white";
+        context.fillStyle = "red";
         context.fillRect(snake[index].x * snakeSize, snake[index].y * snakeSize, snakeSize, snakeSize);
     }
 }
@@ -92,11 +92,13 @@ function snakeUpdate() {
         snakeHeadX++;
     }
     if(snakeDirection == "up") {
-        snakeHeadY++;
+        snakeHeadY--;
     }
     else if (snakeDirection == "left") {
-        snakeHeadX++;
+        snakeHeadX--;
     }
+    
+    checkFoodCollisions(snakeHeadX, snakeHeadY);
         
     var snakeTail = snake.pop();
     snakeTail.x = snakeHeadX;
@@ -117,7 +119,7 @@ function foodInitialize() {
 }
 
 function foodDraw() {
-    context.fillStyle = "white";
+    context.fillStyle = "red";
     context.fillRect(food.x * snakeSize, food.y * snakeSize, snakeSize, snakeSize);
 }
     
@@ -139,13 +141,32 @@ function keyboardHandler(event) {
     if(event.keyCode == "39" && snakeDirection != "left") {
         snakeDirection = "right";
     }
-    else if(event.keyCode == "40" && snakeDirection != "down") {
+    else if(event.keyCode == "40" && snakeDirection != "up") {
         snakeDirection = "down";
     }
     if(event.keyCode == "37" && snakeDirection != "right") {
         snakeDirection = "left";
     }
-    else if(event.keyCode == "38" && snakeDirection != "up") {
+    else if(event.keyCode == "38" && snakeDirection != "down") {
         snakeDirection = "up";
     }
 }
+
+
+/* ----------------------------------------------------------------------------
+ * Collision Handling
+ * ----------------------------------------------------------------------------
+ */
+
+function checkFoodCollisions(snakeHeadX, snakeHeadY) {
+    if(snakeHeadX == food.x && snakeHeadY == food.y) {
+        snake.push({
+            x:0,
+            y:0
+        })
+        snakeLength++;
+    }
+    
+}
+
+ 
