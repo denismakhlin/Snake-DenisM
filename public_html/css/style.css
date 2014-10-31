@@ -6,3 +6,33 @@ body {
 #game-screen {
     display: block;
 }
+
+#gameOver, #playHUD {
+    position: absolute;
+    visibility: hidden;
+}
+
+h1, h2, h3 {
+    font-family: 'Play', sans-serif;
+    text-align: center;
+}
+
+.title {
+    font-size: 62px;
+    margin-bottom: 0px;
+    margin-top: 0px;
+}
+
+#restartButton {
+    border: 2px solid black;
+    border-radius: 10px;
+}
+
+#restartButton:hover {
+    background-color: white;
+}
+
+#scoreboard {
+    margin-top: 5px;
+    margin-left: 10px;
+}
